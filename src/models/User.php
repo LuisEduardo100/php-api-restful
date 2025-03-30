@@ -2,43 +2,45 @@
 require_once __DIR__ . '/../config/database.php';
 
 class User {
-  private $conn;
-  private $table_name = "users";
+  private $id;
+  private $name;
+  private $email;
+  private $password;
+  private $created_at;
 
-  public $id;
-  public $name;
-  public $email;
-  public $password;
-  public $created_at;
-
-  public function __construct() {
-    $database = new Database();
-    $this->conn = $database->getConnection();
+  public function __construct(
+      ?int $id,
+      string $name,
+      string $email,
+      string $password,
+      string $created_at
+    )
+  {
+    $this->id = $id;
+    $this->name = $name;
+    $this->email = $email;
+    $this->password = $password;
+    $this->created_at = $created_at;
   }
 
-  public function create() {
-    $query = "INSERT INTO " . $this->table_name 
-    . " (name, email, password) 
-    VALUES (:name, :email, :password)";
-    
-    $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(":name", $this->name);
-    $stmt->bindParam(":email", $this->email);
-    $stmt->bindParam(":password",password_hash(
-      $this->password,
-      PASSWORD_BCRYPT)
-    );
-
-    if ($stmt->execute()) {
-      return true;
-    }
-    return false;
+  public function getId(): ?int {
+    return $this->id;
   }
 
-  public function getAll() {
-    $query = "SELECT * FROM ". $this->table_name;
-    $stmt = $this->conn->prepare($query);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  public function getName(): string {
+    return $this->name;
   }
+
+  public function getEmail(): string {
+    return $this->email;
+  }
+
+  public function getPassword(): string {
+    return $this->password;
+  }
+
+  public function getCreatedAt(): string {
+    return $this->created_at;
+  }
+
 }
