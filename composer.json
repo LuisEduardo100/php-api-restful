@@ -1,0 +1,19 @@
+{
+    "name": "luise/apirestful",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Luise\\Apirestful\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Luis Eduardo",
+            "email": "luisedu.lepa@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.14",
+        "slim/psr7": "^1.7"
+    }
+}
