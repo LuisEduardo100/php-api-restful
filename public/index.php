@@ -1,15 +1,19 @@
-<?php 
+<?php
+require __DIR__ . '/../vendor/autoload.php';
+
 use Slim\Factory\AppFactory;
 
-require __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
+$dotenv->load();
+
+$container = require __DIR__ . '/../src/config/container.php';
+AppFactory::setContainer($container);
 
 $app = AppFactory::create();
 
-$app->setBasePath('/php-practice/api restful/public');
+$app->addBodyParsingMiddleware();
 
-$app->get('/hello', function ($req, $res, $args) {
-    $res->getBody()->write("Hello, world!");
-    return $res;
-});
+$routes = require __DIR__ . '/../src/config/routes.php';
+$routes($app);
 
-$app -> run();
+$app->run();

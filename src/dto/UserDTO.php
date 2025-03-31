@@ -41,4 +41,13 @@ class UserDTO
   {
     return $this->created_at;
   }
+
+  public function toArray(): array
+  {
+    return [
+      'id' => $this->id,
+      'name' => $this->name,
+      'email' => $this->email,
+    ];
+  }
 }

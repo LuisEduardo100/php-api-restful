@@ -18,13 +18,11 @@ class UserService
   public function getAllUsers(): array
   {
     $users = $this->userRepository->getAll();
-    return array_map(function ($userData) {
-      return new UserDTO(
-        $userData['id'],
-        $userData['name'],
-        $userData['email']
-      );
-    }, $users);
+    return array_map(fn($userData) => [
+      'id' => $userData['id'],
+      'name' => $userData['name'],
+      'email' => $userData['email']
+    ], $users);
   }
 
   public function getUserById(int $id): ?UserDTO
@@ -35,11 +33,11 @@ class UserService
       return null;
     }
 
-    return new UserDTO(
+    return $user ? new UserDTO(
       $user->getId(),
       $user->getName(),
       $user->getEmail()
-    );
+    ) : null;
   }
 
   public function createUser(string $name, string $email, string $password): bool

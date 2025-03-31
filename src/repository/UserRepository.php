@@ -45,7 +45,7 @@ class UserRepository
     }
 
     return new User(
-      $id['id'],
+      $user['id'],
       $user['name'],
       $user['email'],
       $user['password']
