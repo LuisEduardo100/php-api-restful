@@ -1,26 +1,27 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
+namespace Luise\Apirestful\models;
+
+use DateTime;
 
 class User {
-  private $id;
-  private $name;
-  private $email;
-  private $password;
-  private $created_at;
+  private ?int $id;
+  private string $name;
+  private string $email;
+  private string $password;
+  private ?DateTime $created_at;
 
   public function __construct(
       ?int $id,
       string $name,
       string $email,
       string $password,
-      string $created_at
     )
   {
     $this->id = $id;
     $this->name = $name;
     $this->email = $email;
     $this->password = $password;
-    $this->created_at = $created_at;
+    $this->created_at = $created_at ?? new DateTime();
   }
 
   public function getId(): ?int {
@@ -39,7 +40,7 @@ class User {
     return $this->password;
   }
 
-  public function getCreatedAt(): string {
+  public function getCreatedAt(): ?DateTime {
     return $this->created_at;
   }
 
